@@ -10,5 +10,16 @@
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>
+        <class>org.wildfly.plugins.demo.jsf.Task</class>
+    </persistence-unit>
+    <persistence-unit name="tcd-PU">
+        <jta-data-source>java:jboss/datasources/tcdDS</jta-data-source>
+        <properties>
+            <!-- Properties for Hibernate -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+        </properties>
+        <class>sv.gob.mined.projects.tcd.entities.Usuarios</class>
     </persistence-unit>
 </persistence>

@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class TaskController {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "tasks-PU")
     private EntityManager em;
 
     public List<Task> loadAll() {
