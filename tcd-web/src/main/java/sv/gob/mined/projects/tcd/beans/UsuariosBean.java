@@ -1,10 +1,7 @@
 package sv.gob.mined.projects.tcd.beans;
 
-import org.wildfly.plugins.demo.jsf.Task;
-import org.wildfly.plugins.demo.jsf.TaskController;
 import sv.gob.mined.projects.tcd.entities.Usuarios;
 import sv.gob.mined.projects.tcd.services.UsuariosService;
-
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;

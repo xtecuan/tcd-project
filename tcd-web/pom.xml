@@ -84,7 +84,7 @@
                         <layer>ejb-lite</layer>
                         <layer>jpa</layer>
                         <layer>jsf</layer>
-                        <layer>h2-driver</layer>
+                        <!--<layer>h2-driver</layer>-->
                         <layer>postgresql-driver</layer>
                         <layer>jaxrs</layer>
                         <layer>observability</layer>

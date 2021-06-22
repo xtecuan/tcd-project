@@ -1,8 +1,6 @@
 package sv.gob.mined.projects.tcd.repositories;
 
-import org.wildfly.plugins.demo.jsf.Task;
 import sv.gob.mined.projects.tcd.entities.Usuarios;
-
 import javax.ejb.EJBException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
