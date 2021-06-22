@@ -11,9 +11,23 @@
 
     <packaging>war</packaging>
 
-    <name>TCD WildFly Bootable JAR - JSF EJB JPA</name>
+    <name>TCD WildFly Bootable JAR JSF, CDI, JAX-RS, Microprofile-config and JPA</name>
     <description>TCD Web: Aplicación Web de Proyecto de Tribunales de la Carrera Docente</description>
-
+    <url>https://github.com/xtesoft/tcd-project.git</url>
+    <developers>
+        <developer>
+            <id>001</id>
+            <name>Julian Rivera-Pineda</name>
+            <email>xtecuan@protonmail.com</email>
+            <organization>MINED</organization>
+            <organizationUrl>https://www.mined.gob.sv/</organizationUrl>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>UTC/GMT -6:00 hours</timezone>
+            <url>https://github.com/xtecuan</url>
+        </developer>
+    </developers>
     <dependencies>
         <dependency>
             <groupId>jakarta.platform</groupId>
@@ -31,6 +45,11 @@
             <artifactId>jaxb-impl</artifactId>
             <version>2.3.3</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.microprofile.config</groupId>
+            <artifactId>microprofile-config-api</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -57,8 +76,12 @@
                         <layer>jsf</layer>
                         <layer>h2-driver</layer>
                         <layer>postgresql-driver</layer>
-                        <layer>deployment-scanner</layer>
+                        <layer>jaxrs</layer>
+                        <layer>observability</layer>
                     </layers>
+                    <excluded-layers>
+                        <layer>deployment-scanner</layer>
+                    </excluded-layers>
                     <plugin-options>
                         <jboss-fork-embedded>${plugin.fork.embedded}</jboss-fork-embedded>
                     </plugin-options>

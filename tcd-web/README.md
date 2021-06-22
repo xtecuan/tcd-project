@@ -1,35 +1,21 @@
-# WildFly JSF with EJBs and persistence bootable JAR example
+## TCD WildFly JSF with CDI, JAX-RS, Microprofile-config and persistence bootable JAR project
 
-This example shows how to combine JSF EJB and JPA. The example is a simple CRUD application that access to an in memory H2 data base. The H2 datasource is created by a CLI script executed by the wildfly-jar plugin at build time.
+This Project shows how to combine JSF, CDI, JAX-RS, Microprofile-config  and JPA. 
 
-Build and run
-=============
-
-* To build: `mvn package`
-* To run: `mvn wildfly-jar:run`
-* Access the application on a web browser: `http://127.0.0.1:8080/`
+## Running the project
+* Run: `pack-run.sh` or `pack-run.bat`
 
 
-Build and run on OpenShift
-==========================
+## Development mode (watch of your source files)
+* Run: `devmode-watch.sh` or `devmode-watch.bat` (this goal builds your application, build an hollow bootable JAR and start it)
+* Do changes in your sources, your application is rebuilt and redeployed.
+* When done: Ctrl-C in the console to kill the running goal and bootable JAR.
 
-* mvn package -Popenshift
-* mkdir os && cp target/jsf-ejb-jpa-bootable.jar os/
-* Import the OpenJDK 11 image to run the Java application, create the image stream and deployment:
-```
-oc import-image ubi8/openjdk-11 --from=registry.redhat.io/ubi8/openjdk-11 --confirm
 
-oc new-build --strategy source --binary --image-stream openjdk-11 --name jsf-ejb-jpa-bootable-jar
 
-oc start-build jsf-ejb-jpa-bootable-jar --from-dir ./os/
-
-oc new-app --name jsf-ejb-jpa-bootable-jar-app \
-    --env GC_MAX_METASPACE_SIZE=256 \
-    --env GC_METASPACE_SIZE=96 \
-    jsf-ejb-jpa-bootable-jar
-
-oc expose svc/jsf-ejb-jpa-bootable-jar-app
-```
-* You can verify the application is working by using:
-`curl http://$(oc get route jsf-ejb-jpa-bootable-jar-app --template='{{ .spec.host }}')`
-
+## Developer Mode  (with re-packaging)
+* Start devmode: `devmode-start.sh` or `devmode-start.bat`
+* Make some code changes
+* Publish changes: `devmode-publish.sh` or `devmode-publish.bat`
+* Stop devmode: `devmode-stop.sh` or `devmode-stop.bat`
+* Access devmode logs: `devmode-logs.sh` or `devmode-logs.bat`
