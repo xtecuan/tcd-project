@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Path("/usuarios")
 @Produces(MediaType.APPLICATION_JSON)
-public class UsuariosResource {
+public class UsuarioResource {
     @Inject
     @ConfigProperty(name = "config2", defaultValue = "This is the default")
     String config2;

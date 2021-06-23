@@ -1,7 +1,7 @@
 package sv.gob.mined.projects.tcd.services;
 
-import sv.gob.mined.projects.tcd.entities.Usuarios;
-import sv.gob.mined.projects.tcd.repositories.UsuariosRepository;
+import sv.gob.mined.projects.tcd.entities.Usuario;
+import sv.gob.mined.projects.tcd.repositories.UsuarioRepository;
 import sv.gob.mined.projects.tcd.utils.DateUtil;
 import sv.gob.mined.projects.tcd.utils.EmailUtil;
 
@@ -11,18 +11,18 @@ import java.util.Date;
 import java.util.List;
 
 @ApplicationScoped
-public class UsuariosService {
+public class UsuarioService {
     public static final String ACTIVO = "A";
     public static final String INACTIVO = "I";
     public static final int EXPIRACION = 1;
     @Inject
-    private UsuariosRepository repository;
+    private UsuarioRepository repository;
 
 
-    public Usuarios createUser(String correo,
+    public Usuario createUser(String correo,
                                String login,
                                String password){
-        Usuarios usuario = new Usuarios();
+        Usuario usuario = new Usuario();
         usuario.setActivo(ACTIVO);
         usuario.setFechaExpiracion(DateUtil.addYears(new Date(),EXPIRACION));
         if(login!=null && login.length()>0 && login.length()<=100 & !login.equals(" ")){
@@ -37,7 +37,7 @@ public class UsuariosService {
         return repository.add(usuario);
     }
 
-    public List<Usuarios> loadAll(){
+    public List<Usuario> loadAll(){
         return repository.loadAll();
     }
 }

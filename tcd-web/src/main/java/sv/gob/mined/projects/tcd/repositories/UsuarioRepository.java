@@ -1,7 +1,7 @@
 package sv.gob.mined.projects.tcd.repositories;
 
 import org.jboss.logging.Logger;
-import sv.gob.mined.projects.tcd.entities.Usuarios;
+import sv.gob.mined.projects.tcd.entities.Usuario;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -10,29 +10,29 @@ import java.util.Date;
 import java.util.List;
 
 @ApplicationScoped
-public class UsuariosRepository {
-    private static Logger log = Logger.getLogger(UsuariosRepository.class);
+public class UsuarioRepository {
+    private static Logger log = Logger.getLogger(UsuarioRepository.class);
     @PersistenceContext(unitName = "tcd-PU")
     private EntityManager em;
 
-    public List<Usuarios> loadAll() {
-        return em.createNamedQuery("Usuarios.findAll").getResultList();
+    public List<Usuario> loadAll() {
+        return em.createNamedQuery("Usuario.findAll").getResultList();
     }
 
-    public Usuarios add(Usuarios usuario){
+    public Usuario add(Usuario usuario){
         this.em.persist(usuario);
         this.em.flush();
         this.em.refresh(usuario);
         return usuario;
     }
 
-    public Usuarios add(Date fechaExpiracion,
+    public Usuario add(Date fechaExpiracion,
                         String activo,
                         String correo,
                         String password,
                         String login
     ) {
-        final Usuarios newUsuario = new Usuarios();
+        final Usuario newUsuario = new Usuario();
         newUsuario.setFechaExpiracion(fechaExpiracion);
         newUsuario.setActivo(activo);
         newUsuario.setCorreo(correo);
@@ -44,27 +44,27 @@ public class UsuariosRepository {
         return newUsuario;
     }
 
-    public Usuarios delete(Integer idUsuario) {
-        Usuarios ref = null;
+    public Usuario delete(Integer idUsuario) {
+        Usuario ref = null;
         try {
-           ref = this.em.getReference(Usuarios.class, idUsuario);
+           ref = this.em.getReference(Usuario.class, idUsuario);
             this.em.remove(ref);
         } catch (EntityNotFoundException enf) {
-           log.error("Error deleting Usuarios entity...",enf);
+           log.error("Error deleting Usuario entity...",enf);
         }finally {
             return  ref;
         }
     }
 
-    public Usuarios update(Long idUsuario,
+    public Usuario update(Long idUsuario,
                            Date fechaExpiracion,
                            String activo,
                            String correo,
                            String password,
                            String login) {
-        Usuarios ref = null;
+        Usuario ref = null;
         try {
-            ref = this.em.getReference(Usuarios.class, idUsuario);
+            ref = this.em.getReference(Usuario.class, idUsuario);
             if(ref!=null){
                 if(fechaExpiracion!=null){
                     ref.setFechaExpiracion(fechaExpiracion);
@@ -84,7 +84,7 @@ public class UsuariosRepository {
             }
             ref = this.em.merge(ref);
         } catch (EntityNotFoundException enf) {
-            log.error("Error updating Usuarios entity...",enf);
+            log.error("Error updating Usuario entity...",enf);
         }finally {
             return ref;
         }
