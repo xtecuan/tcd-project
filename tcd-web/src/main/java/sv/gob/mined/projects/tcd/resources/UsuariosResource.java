@@ -4,8 +4,13 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Path("/usuarios")
+@Produces(MediaType.APPLICATION_JSON)
 public class UsuariosResource {
     @Inject
     @ConfigProperty(name = "config2", defaultValue = "This is the default")
@@ -16,9 +21,12 @@ public class UsuariosResource {
     String var1;
 
     @GET
-    @Produces("text/plain")
-    public String hello() {
-        return "Hello, World! "+config2+" "+var1;
+    public Map<String, Object> hello() {
+        Map<String,Object> out = new HashMap<>();
+        out.put("helloMsg","Hello, World! ");
+        out.put("config2",config2);
+        out.put("var1",var1);
+        return out;
     }
 
 

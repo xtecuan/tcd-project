@@ -1,7 +1,7 @@
 package sv.gob.mined.projects.tcd.repositories;
 
+import org.jboss.logging.Logger;
 import sv.gob.mined.projects.tcd.entities.Usuarios;
-import javax.ejb.EJBException;
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -11,6 +11,7 @@ import java.util.List;
 
 @ApplicationScoped
 public class UsuariosRepository {
+    private static Logger log = Logger.getLogger(UsuariosRepository.class);
     @PersistenceContext(unitName = "tcd-PU")
     private EntityManager em;
 
@@ -44,12 +45,14 @@ public class UsuariosRepository {
     }
 
     public Usuarios delete(Integer idUsuario) {
+        Usuarios ref = null;
         try {
-            Usuarios ref = this.em.getReference(Usuarios.class, idUsuario);
+           ref = this.em.getReference(Usuarios.class, idUsuario);
             this.em.remove(ref);
-            return ref;
         } catch (EntityNotFoundException enf) {
-            throw new EJBException(enf);
+           log.error("Error deleting Usuarios entity...",enf);
+        }finally {
+            return  ref;
         }
     }
 
@@ -59,8 +62,9 @@ public class UsuariosRepository {
                            String correo,
                            String password,
                            String login) {
+        Usuarios ref = null;
         try {
-            final Usuarios ref = this.em.getReference(Usuarios.class, idUsuario);
+            ref = this.em.getReference(Usuarios.class, idUsuario);
             if(ref!=null){
                 if(fechaExpiracion!=null){
                     ref.setFechaExpiracion(fechaExpiracion);
@@ -78,9 +82,11 @@ public class UsuariosRepository {
                     ref.setPassword(login);
                 }
             }
-            return this.em.merge(ref);
+            ref = this.em.merge(ref);
         } catch (EntityNotFoundException enf) {
-            throw new EJBException(enf);
+            log.error("Error updating Usuarios entity...",enf);
+        }finally {
+            return ref;
         }
     }
 }
